@@ -23,3 +23,20 @@ exports.register = async (req, res) => {
     token,
   });
 };
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(400).json({ message: "Invalid credentials" });
+  const ok = await user.comparePassword(password);
+  if (!ok) return res.status(400).json({ message: "Invaild credentials" });
+  const token = generateToken(user);
+  res.json({
+    user: { id: user._id, name: user.name, email: user.email, role: user.role },
+    token,
+  });
+};
+
+exports.me = async (req, res) => {
+  req.json(req.user);
+};
