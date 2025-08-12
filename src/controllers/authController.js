@@ -36,7 +36,3 @@ exports.login = async (req, res) => {
     token,
   });
 };
-
-exports.me = async (req, res) => {
-  req.json(req.user);
-};
