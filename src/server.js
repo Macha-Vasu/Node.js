@@ -9,8 +9,9 @@ const app = express();
 const connectDB = require("./config/db");
 const server = http.createServer(app);
 const userRoutes = require("./routes/userRoutes");
+const patientRoutes = require("./routes/PatientRoutes");
 // app.get("/",(req, res)=>{
-//     return res.status(200).send("<h1>Welcome to Node Server!</h1>");
+// return res.status(200).send("<h1>Welcome to Node Server!</h1>");
 // });
 
 app.use(helmet());
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/api/users", userRoutes);
+app.use("/api/patient", patientRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
